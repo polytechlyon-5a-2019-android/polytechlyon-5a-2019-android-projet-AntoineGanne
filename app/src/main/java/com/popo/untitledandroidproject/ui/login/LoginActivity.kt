@@ -16,6 +16,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 
 import com.popo.untitledandroidproject.R
+import com.popo.untitledandroidproject.viewmodel.LoginViewModel
 
 class LoginActivity : AppCompatActivity() {
 

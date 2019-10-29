@@ -1,5 +1,6 @@
 package com.popo.untitledandroidproject.data
 
+import com.popo.untitledandroidproject.database.UserDao
 import com.popo.untitledandroidproject.model.User
 
 /**
@@ -29,7 +30,7 @@ class LoginRepository(val dataSource: LoginDataSource) {
 
     fun login(username: String, password: String): Result<User> {
         // handle login
-        val result = dataSource.login(username, password)
+        val result = dataSource.login(username,password)
 
         if (result is Result.Success) {
             setLoggedInUser(result.data)

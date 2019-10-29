@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.popo.untitledandroidproject.data.LoginDataSource
 import com.popo.untitledandroidproject.data.LoginRepository
+import com.popo.untitledandroidproject.viewmodel.LoginViewModel
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

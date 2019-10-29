@@ -15,4 +15,7 @@ interface UserDao {
     fun get(key:String): User?
     @Query("Select * from user")
     fun getUsers(): List<User>?
+
+    @Query("select * from user where email= :email and password=:password")
+    fun login(email: String,password:String): User?
 }
