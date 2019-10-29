@@ -6,7 +6,7 @@ import com.popo.untitledandroidproject.model.User
 @Dao
 interface UserDao {
     @Insert
-    fun insert(user: User): String
+    fun insert(user: User): Long
     @Delete
     fun delete(user:User)
     @Update

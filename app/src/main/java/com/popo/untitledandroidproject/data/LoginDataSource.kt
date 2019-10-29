@@ -10,8 +10,8 @@ import java.util.*
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
-class LoginDataSource {
-    abstract val dataSource : UserDao
+abstract class LoginDataSource {
+     abstract val dataSource : UserDao
 
     fun login(username: String, password: String): Result<User> {
         try {
@@ -20,11 +20,12 @@ class LoginDataSource {
             if(result==null){
                 throw Exception  ("invalide login")
             }
-            val user = User(
-                UUID.randomUUID().toString(),
-                "Jane Doe"
-            )
-            return Result.Success(result)
+//            val user:User{
+//
+//            }
+//            return Result.Success(user)
+            return Result.Error(IOException("Error logging in", Exception  ("Succès, a supp")))
+
         } catch (e: Throwable) {
             return Result.Error(IOException("Error logging in", e))
         }

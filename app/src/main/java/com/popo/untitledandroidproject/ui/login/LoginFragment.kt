@@ -1,41 +1,71 @@
 package com.popo.untitledandroidproject.ui.login
 
-import android.app.Activity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
 import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.databinding.DataBindingUtil
 
 import com.popo.untitledandroidproject.R
-import com.popo.untitledandroidproject.viewmodel.LoginViewModel
+import com.popo.untitledandroidproject.database.LocalDatabase
+import com.popo.untitledandroidproject.databinding.FragmentLoginBinding
+import kotlinx.android.synthetic.main.fragment_login.view.*
 
-class LoginActivity : AppCompatActivity() {
+import kotlinx.android.synthetic.main.fragment_login.*
+
+class LoginFragment : Fragment() {
+
 
     private lateinit var loginViewModel: LoginViewModel
+    private lateinit var binding: FragmentLoginBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ):View? {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_login)
+        binding =DataBindingUtil.inflate(inflater, R.layout.fragment_login,container,false)
+        binding.lifecycleOwner=this
 
-        val username = findViewById<EditText>(R.id.username)
-        val password = findViewById<EditText>(R.id.password)
-        val login = findViewById<Button>(R.id.login)
-        val loading = findViewById<ProgressBar>(R.id.loading)
+//        setContentView(R.layout.activity_login)
 
-        loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
+        val application = requireNotNull(this.activity).application
+        val dataSource = LocalDatabase.getInstance(application).userDao
+
+        val viewModelFactory= LoginViewModelFactory(dataSource,application)
+
+
+//        val username = findViewById<EditText>(R.id.username)
+//        val password = findViewById<EditText>(R.id.password)
+//        val login = findViewById<Button>(R.id.login)
+//        val loading = findViewById<ProgressBar>(R.id.loading)
+
+        val loginViewModelFactory=LoginViewModelFactory(dataSource,application)
+        loginViewModel = ViewModelProviders.of(this, loginViewModelFactory)
             .get(LoginViewModel::class.java)
 
-        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
+        binding.viewModel=loginViewModel
+        binding.apply{
+
+        }
+
+        binding.apply{
+
+
+        }
+
+
+        loginViewModel.loginFormState.observe(this@LoginFragment, Observer {
             val loginState = it ?: return@Observer
 
             // disable login button unless both username / password is valid
@@ -49,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
+        loginViewModel.loginResult.observe(this@LoginFragment, Observer {
             val loginResult = it ?: return@Observer
 
             loading.visibility = View.GONE
@@ -59,10 +89,10 @@ class LoginActivity : AppCompatActivity() {
             if (loginResult.success != null) {
                 updateUiWithUser(loginResult.success)
             }
-            setResult(Activity.RESULT_OK)
+//            setResult(Activity.RESULT_OK)
 
             //Complete and destroy login activity once successful
-            finish()
+//            finish()
         })
 
         username.afterTextChanged {
@@ -96,21 +126,23 @@ class LoginActivity : AppCompatActivity() {
                 loginViewModel.login(username.text.toString(), password.text.toString())
             }
         }
+
+        return binding.root
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
-        // TODO : initiate successful logged in experience
-        Toast.makeText(
-            applicationContext,
-            "$welcome $displayName",
-            Toast.LENGTH_LONG
-        ).show()
+//        val welcome = getString(R.string.welcome)
+//        val displayName = model.displayName
+//        // TODO : initiate successful logged in experience
+//        Toast.makeText(
+//            applicationContext,
+//            "$welcome $displayName",
+//            Toast.LENGTH_LONG
+//        ).show()
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
-        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
 }
 

@@ -1,19 +1,41 @@
-package com.popo.untitledandroidproject.viewmodel
+package com.popo.untitledandroidproject.ui.login
 
+import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import android.util.Patterns
 import androidx.lifecycle.AndroidViewModel
-import com.popo.untitledandroidproject.data.LoginRepository
-import com.popo.untitledandroidproject.data.Result
 
 import com.popo.untitledandroidproject.R
-import com.popo.untitledandroidproject.ui.login.LoggedInUserView
-import com.popo.untitledandroidproject.ui.login.LoginFormState
-import com.popo.untitledandroidproject.ui.login.LoginResult
+import com.popo.untitledandroidproject.database.UserDao
+import com.popo.untitledandroidproject.model.User
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 
-class LoginViewModel(private val loginRepository: LoginRepository) : AndroidViewModel(app) {
+class LoginViewModel(
+    val database: UserDao,
+    application: Application,
+    private val UserID: Long=0L
+    ) : AndroidViewModel(application) {
+
+    private val viewModelJob = Job()
+    private val uiScope= CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    private val _user = MutableLiveData<User>()
+    val user: LiveData<User>
+        get() = _user
+
+    fun onGender(gender : String){
+        _user.value?.gender = gender
+    }
+
+    init {
+        Log.i("IdentityViewModel", "created")
+
+        _user.value= User(0,"Ganne","Antoine init")
+    }
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
@@ -23,13 +45,13 @@ class LoginViewModel(private val loginRepository: LoginRepository) : AndroidView
 
     fun login(username: String, password: String) {
         // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password)
+        val result = database.login(username, password)
 
-        if (result is Result.Success) {
+        if (result != null) {
             _loginResult.value =
                 LoginResult(
                     success = LoggedInUserView(
-                        displayName = result.data.displayName
+                        displayName = result.lastname as String
                     )
                 )
         } else {
