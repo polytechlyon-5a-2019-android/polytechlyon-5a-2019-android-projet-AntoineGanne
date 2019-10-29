@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 
@@ -37,18 +38,9 @@ class LoginFragment : Fragment() {
         binding =DataBindingUtil.inflate(inflater, R.layout.fragment_login,container,false)
         binding.lifecycleOwner=this
 
-//        setContentView(R.layout.activity_login)
 
         val application = requireNotNull(this.activity).application
         val dataSource = LocalDatabase.getInstance(application).userDao
-
-        val viewModelFactory= LoginViewModelFactory(dataSource,application)
-
-
-//        val username = findViewById<EditText>(R.id.username)
-//        val password = findViewById<EditText>(R.id.password)
-//        val login = findViewById<Button>(R.id.login)
-//        val loading = findViewById<ProgressBar>(R.id.loading)
 
         val loginViewModelFactory=LoginViewModelFactory(dataSource,application)
         loginViewModel = ViewModelProviders.of(this, loginViewModelFactory)
@@ -56,12 +48,9 @@ class LoginFragment : Fragment() {
 
         binding.viewModel=loginViewModel
         binding.apply{
-
-        }
-
-        binding.apply{
-
-
+            username.hint=getString(R.string.prompt_email)
+            password.hint=getString(R.string.prompt_password)
+            login.text=getString(R.string.action_sign_in)
         }
 
 
@@ -131,18 +120,18 @@ class LoginFragment : Fragment() {
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
-//        val welcome = getString(R.string.welcome)
-//        val displayName = model.displayName
-//        // TODO : initiate successful logged in experience
-//        Toast.makeText(
-//            applicationContext,
-//            "$welcome $displayName",
-//            Toast.LENGTH_LONG
-//        ).show()
+        val welcome = getString(R.string.welcome)
+        val displayName = model.displayName
+        // TODO : initiate successful logged in experience
+        Toast.makeText(
+            this.context,
+            "$welcome $displayName",
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
-//        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this.context, errorString, Toast.LENGTH_SHORT).show()
     }
 }
 
