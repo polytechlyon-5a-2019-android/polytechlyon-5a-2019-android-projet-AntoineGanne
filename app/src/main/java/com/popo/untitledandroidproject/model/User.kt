@@ -11,7 +11,9 @@ import androidx.room.PrimaryKey
 @Keep
 @Entity(tableName= "user")
 data class User(
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    private var _id: Long?=0L,
     @ColumnInfo(name="email")
     private var _email: String? ="",
     @ColumnInfo(name="password")
@@ -33,6 +35,7 @@ data class User(
 
 ) : Parcelable{
     constructor(parcel: Parcel) : this(
+        parcel.readValue(Long::class.java.classLoader) as? Long,
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -45,6 +48,7 @@ data class User(
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeValue(_id)
         parcel.writeString(_email)
         parcel.writeString(_password)
         parcel.writeString(_lastname)
