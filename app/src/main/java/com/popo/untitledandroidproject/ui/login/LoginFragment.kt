@@ -86,8 +86,8 @@ class LoginFragment : Fragment() {
 
         username?.afterTextChanged {
             loginViewModel.loginDataChanged(
-                username?.text.toString(),
-                password?.text.toString()
+                username.text.toString(),
+                password.text.toString()
             )
         }
 

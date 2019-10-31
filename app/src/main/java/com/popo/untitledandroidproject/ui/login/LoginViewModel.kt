@@ -6,6 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import android.util.Patterns
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
+import com.popo.untitledandroidproject.data.LoginRepository
+import com.popo.untitledandroidproject.data.Result
 
 import com.popo.untitledandroidproject.R
 import com.popo.untitledandroidproject.database.UserDao
@@ -13,6 +16,7 @@ import com.popo.untitledandroidproject.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class LoginViewModel(
     val database: UserDao,
@@ -27,14 +31,8 @@ class LoginViewModel(
     val user: LiveData<User>
         get() = _user
 
-    fun onGender(gender : String){
-        _user.value?.gender = gender
-    }
-
     init {
         Log.i("IdentityViewModel", "created")
-
-        _user.value= User(0,"Ganne","Antoine init")
     }
 
     private val _loginForm = MutableLiveData<LoginFormState>()
@@ -85,5 +83,18 @@ class LoginViewModel(
     // A placeholder password validation check
     private fun isPasswordValid(password: String): Boolean {
         return password.length > 5
+    }
+
+    fun onValidateLogin(){
+        uiScope.launch {
+            val user = user.value ?:return@launch
+            if(user.email!=null && !isUserNameValid(user.email as String)){
+                return@launch
+            }
+            if(user.password!=null && isPasswordValid(user.password as String)){
+                return@launch
+            }
+
+        }
     }
 }
