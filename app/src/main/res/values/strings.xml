@@ -3,12 +3,21 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
+    <string name="prompt_password_check">Re-enter password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="title_account_creation">Create an account</string>
+    <string name="prompt_lastname">Last name</string>
+    <string name="prompt_firstname">First name</string>
+    <string name="prompt_birthday">Birthday</string>
+    <string name="man" >Man 👨</string>
+    <string name="woman">Woman 👩</string>
+    <string name="other_gender">Non-binary 🌈</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
