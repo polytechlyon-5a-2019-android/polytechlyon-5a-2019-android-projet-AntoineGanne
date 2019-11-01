@@ -88,10 +88,10 @@ class LoginViewModel(
     fun onValidateLogin(){
         uiScope.launch {
             val user = user.value ?:return@launch
-            if(user.email!=null && !isUserNameValid(user.email as String)){
+            if(user.email==null || !isUserNameValid(user.email as String)){
                 return@launch
             }
-            if(user.password!=null && isPasswordValid(user.password as String)){
+            if(user.password==null || isPasswordValid(user.password as String)){
                 return@launch
             }
 
