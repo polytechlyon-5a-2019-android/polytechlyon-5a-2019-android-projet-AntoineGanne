@@ -18,6 +18,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
+import utils.isPasswordValid
+import utils.isUserNameValid
+
 class LoginViewModel(
     val database: UserDao,
     application: Application,
@@ -71,19 +74,6 @@ class LoginViewModel(
         }
     }
 
-    // A placeholder username validation check
-    private fun isUserNameValid(username: String): Boolean {
-        return if (username.contains('@')) {
-            Patterns.EMAIL_ADDRESS.matcher(username).matches()
-        } else {
-            username.isNotBlank()
-        }
-    }
-
-    // A placeholder password validation check
-    private fun isPasswordValid(password: String): Boolean {
-        return password.length > 5
-    }
 
     fun onValidateLogin(){
         uiScope.launch {
@@ -95,6 +85,22 @@ class LoginViewModel(
                 return@launch
             }
 
+        }
+    }
+
+    private val _navigateToPersonalDataFragment = MutableLiveData<User>()
+
+    val navigateToAccountCreationFragment: LiveData<User>
+        get() = _navigateToPersonalDataFragment
+
+    fun doneNavigating() {
+        _navigateToPersonalDataFragment.value = null
+    }
+
+    fun onClickToAccountCreation(){
+        uiScope.launch {
+            val user=_user.value
+            _navigateToPersonalDataFragment.value=user
         }
     }
 }
