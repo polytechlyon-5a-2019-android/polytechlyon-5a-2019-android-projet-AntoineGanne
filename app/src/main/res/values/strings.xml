@@ -17,6 +17,7 @@
     <string name="man" >Man 👨</string>
     <string name="woman">Woman 👩</string>
     <string name="other_gender">Non-binary 🌈</string>
+    <string name="prompt_gender">Gender</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

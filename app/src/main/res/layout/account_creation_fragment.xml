@@ -31,78 +31,135 @@
         <EditText
             android:id="@+id/input_email"
             style="@android:style/Widget.Material.Light.AutoCompleteTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
             android:accessibilityLiveRegion="polite"
             android:ems="10"
             android:hint="@string/prompt_email"
             android:inputType="textEmailAddress"
             android:selectAllOnFocus="false"
             android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/form_title"/>
+            app:layout_constraintTop_toBottomOf="@+id/form_title" />
 
         <EditText
             android:id="@+id/input_password"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
             android:ems="10"
             android:hint="@string/prompt_password"
             android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_email"/>
+            app:layout_constraintTop_toBottomOf="@+id/input_email" />
 
         <EditText
             android:id="@+id/input_password_check"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
             android:ems="10"
             android:hint="@string/prompt_password_check"
             android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_password" />
 
         <EditText
             android:id="@+id/input_firstname"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
             android:ems="10"
             android:hint="@string/prompt_firstname"
             android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_password_check" />
 
         <EditText
             android:id="@+id/input_lastname"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
             android:ems="10"
             android:hint="@string/prompt_lastname"
             android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_firstname" />
 
         <EditText
             android:id="@+id/input_birthday"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
             android:ems="10"
             android:hint="@string/prompt_birthday"
             android:inputType="date"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_lastname" />
+
+        <RadioGroup
+            android:id="@+id/input_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="390dp">
+
+            <TextView
+                android:id="@+id/tv_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prompt_gender" />
+
+            <RadioButton
+                android:id="@+id/rb_man"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/man" />
+
+            <RadioButton
+                android:id="@+id/rb_woman"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/woman" />
+
+            <RadioButton
+                android:id="@+id/rb_otherGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/other_gender" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/button_validate_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/title_account_creation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="527dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
