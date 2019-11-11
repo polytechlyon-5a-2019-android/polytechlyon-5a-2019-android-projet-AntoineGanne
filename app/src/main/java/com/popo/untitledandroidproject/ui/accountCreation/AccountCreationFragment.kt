@@ -1,7 +1,9 @@
 package com.popo.untitledandroidproject.ui.accountCreation
 
+import android.app.DatePickerDialog
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import com.popo.untitledandroidproject.R
 import com.popo.untitledandroidproject.database.LocalDatabase
 import com.popo.untitledandroidproject.databinding.*
+import java.util.*
 
 
 class AccountCreationFragment : Fragment() {
@@ -39,9 +42,23 @@ class AccountCreationFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, accountCreationViewModelFactory)
             .get(AccountCreationViewModel::class.java)
 
+        binding.inputBirthday.setOnClickListener {
+            val c = Calendar.getInstance()
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
+            val dpd = DatePickerDialog(activity!!,
+                DatePickerDialog.OnDateSetListener { view, year, monthOfYear,
+                                                     dayOfMonth ->
+                    binding.inputBirthday.text =
+                        SpannableStringBuilder("$dayOfMonth/$monthOfYear/$year")
+                    viewModel.user.value?.birthdayDate =
+                        Date(year,monthOfYear,dayOfMonth).time
+                }, year, month, day)
+            dpd.show()
+        }
+
         binding.viewModel=viewModel
-
-
         return binding.root
     }
 
