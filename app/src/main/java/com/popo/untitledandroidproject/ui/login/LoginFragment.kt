@@ -10,10 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
+import com.google.android.material.button.MaterialButton
 
 import com.popo.untitledandroidproject.R
 import com.popo.untitledandroidproject.database.LocalDatabase
@@ -21,6 +24,8 @@ import com.popo.untitledandroidproject.databinding.FragmentLoginBinding
 import kotlinx.android.synthetic.main.fragment_login.view.*
 
 import kotlinx.android.synthetic.main.fragment_login.*
+
+
 
 class LoginFragment : Fragment() {
 
@@ -46,32 +51,27 @@ class LoginFragment : Fragment() {
         loginViewModel = ViewModelProviders.of(this, loginViewModelFactory)
             .get(LoginViewModel::class.java)
 
-        binding.viewModel=loginViewModel
-        binding.apply{
-            username.hint=getString(R.string.prompt_email)
-            password.hint=getString(R.string.prompt_password)
-            login.text=getString(R.string.action_sign_in)
-        }
+
 
 
         loginViewModel.loginFormState.observe(this@LoginFragment, Observer {
             val loginState = it ?: return@Observer
 
             // disable login button unless both username / password is valid
-            login.isEnabled = loginState.isDataValid
+            binding.login.isEnabled = loginState.isDataValid
 
             if (loginState.usernameError != null) {
-                username.error = getString(loginState.usernameError)
+                binding.username.error = getString(loginState.usernameError)
             }
             if (loginState.passwordError != null) {
-                password.error = getString(loginState.passwordError)
+                binding.password.error = getString(loginState.passwordError)
             }
         })
 
         loginViewModel.loginResult.observe(this@LoginFragment, Observer {
             val loginResult = it ?: return@Observer
 
-            loading.visibility = View.GONE
+            binding.loading.visibility = View.GONE
             if (loginResult.error != null) {
                 showLoginFailed(loginResult.error)
             }
@@ -84,18 +84,18 @@ class LoginFragment : Fragment() {
 //            finish()
         })
 
-        username?.afterTextChanged {
+        binding.username?.afterTextChanged {
             loginViewModel.loginDataChanged(
-                username.text.toString(),
-                password.text.toString()
+                binding.username.text.toString(),
+                binding.password.text.toString()
             )
         }
 
-        password?.apply {
+        binding.password?.apply {
             afterTextChanged {
                 loginViewModel.loginDataChanged(
-                    username.text.toString(),
-                    password.text.toString()
+                    binding.username?.text.toString(),
+                    binding.password?.text.toString()
                 )
             }
 
@@ -103,18 +103,31 @@ class LoginFragment : Fragment() {
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
                         loginViewModel.login(
-                            username.text.toString(),
-                            password.text.toString()
+                            binding.username?.text.toString(),
+                            binding.password?.text.toString()
                         )
                 }
                 false
             }
 
-            login.setOnClickListener {
+            binding.login.setOnClickListener {
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString())
             }
         }
+
+
+        binding.viewModel=loginViewModel
+        binding.apply{
+            username.hint=getString(R.string.prompt_email)
+            password.hint=getString(R.string.prompt_password)
+            login.text=getString(R.string.action_sign_in)
+        }
+
+        binding.bAccountCreation.setOnClickListener {view ->
+            binding.root.findNavController().navigate(R.id.action_loginFragment_to_accountCreationFragment);
+        }
+
 
         return binding.root
     }

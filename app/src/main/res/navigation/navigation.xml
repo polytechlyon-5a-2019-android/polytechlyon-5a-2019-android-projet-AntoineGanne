@@ -8,5 +8,19 @@
         android:id="@+id/loginFragment"
         android:name="com.popo.untitledandroidproject.ui.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_accountCreationFragment"
+            app:destination="@+id/accountCreationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountCreationFragment"
+        android:name="com.popo.untitledandroidproject.ui.accountCreation.AccountCreationFragment"
+        android:label="account_creation_fragment"
+        tools:layout="@layout/account_creation_fragment" >
+        <action
+            android:id="@+id/action_accountCreationFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@+id/loginFragment" />
+    </fragment>
 </navigation>

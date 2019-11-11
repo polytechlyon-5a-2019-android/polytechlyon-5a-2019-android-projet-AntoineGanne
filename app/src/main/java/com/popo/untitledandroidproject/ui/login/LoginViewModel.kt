@@ -5,8 +5,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import android.util.Patterns
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.popo.untitledandroidproject.data.LoginRepository
 import com.popo.untitledandroidproject.data.Result
 
@@ -37,6 +40,8 @@ class LoginViewModel(
     init {
         Log.i("IdentityViewModel", "created")
     }
+
+
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
@@ -75,7 +80,7 @@ class LoginViewModel(
     }
 
 
-    fun onValidateLogin(){
+    fun onValidateLogin(view: View){
         uiScope.launch {
             val user = user.value ?:return@launch
             if(user.email==null || !isUserNameValid(user.email as String)){
@@ -84,23 +89,7 @@ class LoginViewModel(
             if(user.password==null || isPasswordValid(user.password as String)){
                 return@launch
             }
-
-        }
-    }
-
-    private val _navigateToPersonalDataFragment = MutableLiveData<User>()
-
-    val navigateToAccountCreationFragment: LiveData<User>
-        get() = _navigateToPersonalDataFragment
-
-    fun doneNavigating() {
-        _navigateToPersonalDataFragment.value = null
-    }
-
-    fun onClickToAccountCreation(){
-        uiScope.launch {
-            val user=_user.value
-            _navigateToPersonalDataFragment.value=user
+//            view.findNavController().navigate()
         }
     }
 }
