@@ -20,7 +20,7 @@ data class User(
     @ColumnInfo(name="email")
     private var _email: String? ="",
     @ColumnInfo(name="password")
-    private var _password: String?,
+    private var _password: String? ="",
     @ColumnInfo(name = "lastname")
     private var _lastname: String? = "",
     @ColumnInfo(name = "firstname")
@@ -114,6 +114,7 @@ data class User(
         parcel.readString(),
         parcel.readString()
     )
+
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeValue(_id)

@@ -4,14 +4,8 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import android.util.Patterns
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import com.popo.untitledandroidproject.data.LoginRepository
-import com.popo.untitledandroidproject.data.Result
 
 import com.popo.untitledandroidproject.R
 import com.popo.untitledandroidproject.database.UserDao
@@ -22,7 +16,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 import utils.isPasswordValid
-import utils.isUserNameValid
+import utils.isMailValid
 
 class LoginViewModel(
     val database: UserDao,
@@ -67,7 +61,7 @@ class LoginViewModel(
     }
 
     fun loginDataChanged(username: String, password: String) {
-        if (!isUserNameValid(username)) {
+        if (!isMailValid(username)) {
             _loginForm.value =
                 LoginFormState(usernameError = R.string.invalid_username)
         } else if (!isPasswordValid(password)) {
@@ -83,7 +77,7 @@ class LoginViewModel(
     fun onValidateLogin(view: View){
         uiScope.launch {
             val user = user.value ?:return@launch
-            if(user.email==null || !isUserNameValid(user.email as String)){
+            if(user.email==null || !isMailValid(user.email as String)){
                 return@launch
             }
             if(user.password==null || isPasswordValid(user.password as String)){

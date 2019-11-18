@@ -42,6 +42,7 @@
             android:inputType="textEmailAddress"
             android:selectAllOnFocus="false"
             android:singleLine="true"
+            android:text="@={viewModel.user.email}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/form_title" />
@@ -56,6 +57,7 @@
             android:ems="10"
             android:hint="@string/prompt_password"
             android:inputType="textPassword"
+            android:text="@={viewModel.user.password}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_email" />
@@ -84,6 +86,7 @@
             android:ems="10"
             android:hint="@string/prompt_firstname"
             android:inputType="textPersonName"
+            android:text="@={viewModel.user.firstname}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_password_check" />
@@ -98,6 +101,7 @@
             android:ems="10"
             android:hint="@string/prompt_lastname"
             android:inputType="textPersonName"
+            android:text="@={viewModel.user.lastname}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_firstname" />
@@ -137,18 +141,24 @@
                 android:id="@+id/rb_man"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="@{viewModel.user.gender.equals(@string/man)}"
+                android:onClick="@{() -> viewModel.onGender(@string/man)}"
                 android:text="@string/man" />
 
             <RadioButton
                 android:id="@+id/rb_woman"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="@{viewModel.user.gender.equals(@string/woman)}"
+                android:onClick="@{() -> viewModel.onGender(@string/woman)}"
                 android:text="@string/woman" />
 
             <RadioButton
                 android:id="@+id/rb_otherGender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="@{viewModel.user.gender.equals(@string/other_gender)}"
+                android:onClick="@{() -> viewModel.onGender(@string/other_gender)}"
                 android:text="@string/other_gender" />
         </RadioGroup>
 
@@ -160,6 +170,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="32dp"
             android:text="@string/title_account_creation"
+            android:onClick="@{() -> viewModel.onValidate()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_gender" />

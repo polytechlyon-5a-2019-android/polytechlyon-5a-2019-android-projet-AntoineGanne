@@ -11,7 +11,9 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_accountCreationFragment"
-            app:destination="@+id/accountCreationFragment" />
+            app:destination="@+id/accountCreationFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/accountCreationFragment"
@@ -22,5 +24,10 @@
             android:id="@+id/action_accountCreationFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             app:popUpTo="@+id/loginFragment" />
+        <argument
+            android:name="user_arg"
+            app:argType="com.popo.untitledandroidproject.model.User"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 </navigation>

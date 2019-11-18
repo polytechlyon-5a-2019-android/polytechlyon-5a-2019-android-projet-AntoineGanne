@@ -5,7 +5,7 @@ import androidx.databinding.InverseMethod
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun isUserNameValid(username: String): Boolean {
+fun isMailValid(username: String): Boolean {
     return if (username.contains('@')) {
         Patterns.EMAIL_ADDRESS.matcher(username).matches()
     } else {
@@ -15,7 +15,7 @@ fun isUserNameValid(username: String): Boolean {
 
 // A placeholder password validation check
 fun isPasswordValid(password: String): Boolean {
-    return password.length > 5
+    return password.length >= 5
 }
 
 

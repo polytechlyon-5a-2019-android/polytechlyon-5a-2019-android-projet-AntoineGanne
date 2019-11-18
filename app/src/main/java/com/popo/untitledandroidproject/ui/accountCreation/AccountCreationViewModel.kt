@@ -1,42 +1,102 @@
 package com.popo.untitledandroidproject.ui.accountCreation
 
 import android.app.Application
+import android.provider.SyncStateContract.Helpers.insert
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.navigation.findNavController
+import com.popo.untitledandroidproject.R
 import com.popo.untitledandroidproject.database.UserDao
 import com.popo.untitledandroidproject.model.User
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 
 class AccountCreationViewModel(
     val database: UserDao,
-    application: Application
+    application: Application,
+    private val userID: Long=0L
 ) : AndroidViewModel(application) {
     private val viewModelJob = Job()
-    private val uiscope= CoroutineScope(Dispatchers.Main+viewModelJob)
+    private val uiScope= CoroutineScope(Dispatchers.Main+viewModelJob)
 
     private val _user= MutableLiveData<User>()
     val user: LiveData<User>
         get()= _user
 
+    fun onGender(gender: String) {
+        _user.value?.gender = gender
+    }
+
     init {
         Log.i("AcountCreationViewModel","created")
+        initializeUser()
+    }
+
+    private fun initializeUser() {
+        uiScope.launch {
+            _user.value=getUser()
+        }
+    }
+
+    private suspend fun getUser(): User? {
+        return withContext(Dispatchers.IO){
+            var user = User()
+            if(userID!=0L){
+                user= database.get(userID)!!
+            }
+            user
+        }
+    }
+
+    private suspend fun insertUser(user: User):Long {
+        var id=0L
+        uiScope.launch {
+            id=insertDb(user)
+        }
+        return id
+    }
+
+    private suspend fun insertDb(user: User):Long {
+        return withContext(Dispatchers.IO){
+            var id=database.insert(user)
+            id
+        }
     }
 
     fun onValidateSignUp(){
-        uiscope.launch {
+        uiScope.launch {
             val user = user.value ?: return@launch
             if(user.email==null){
                 return@launch
             }
         }
+    }
 
+    private val _navigateToLoginFragment = MutableLiveData<User>()
+
+    val navigateToLoginFragment: LiveData<User>
+        get() = _navigateToLoginFragment
+
+    fun doneNavigating() {
+        _navigateToLoginFragment.value = null
+    }
+
+    fun onValidate() {
+        uiScope.launch {
+            println("insert "+user.value)
+            val user = user.value ?: return@launch
+            if(user.email.isNullOrEmpty() || !utils.isMailValid(user.email!!))
+                return@launch
+            if(user.password.isNullOrEmpty() || !utils.isPasswordValid(user.password!!))
+                return@launch
+            println("****************")
+            println("insert "+user.email)
+            val idNewUser=insertUser(user)
+            user.id=idNewUser
+            _navigateToLoginFragment.value = user
+        }
     }
 }

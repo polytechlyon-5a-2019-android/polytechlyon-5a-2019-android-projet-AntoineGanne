@@ -111,7 +111,7 @@ class LoginFragment : Fragment() {
             }
 
             binding.login.setOnClickListener {
-                loading.visibility = View.VISIBLE
+//                loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString())
             }
         }
