@@ -4,7 +4,6 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import android.view.View
 import androidx.lifecycle.AndroidViewModel
 
 import com.popo.untitledandroidproject.R
@@ -74,7 +73,7 @@ class LoginViewModel(
     }
 
 
-    fun onValidateLogin(view: View){
+    fun onValidateLogin() {
         uiScope.launch {
             val user = user.value ?:return@launch
             if(user.email==null || !isMailValid(user.email as String)){

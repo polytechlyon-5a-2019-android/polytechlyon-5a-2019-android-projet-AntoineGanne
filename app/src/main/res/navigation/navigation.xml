@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/apiItemFragment">
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.popo.untitledandroidproject.ui.login.LoginFragment"
@@ -30,4 +30,8 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+    <fragment
+        android:id="@+id/apiItemFragment"
+        android:name="com.popo.untitledandroidproject.ui.api.ApiItemFragment"
+        android:label="ApiItemFragment" />
 </navigation>
