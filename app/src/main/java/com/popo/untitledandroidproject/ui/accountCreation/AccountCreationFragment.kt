@@ -54,7 +54,7 @@ class AccountCreationFragment : Fragment() {
             val month = c.get(Calendar.MONTH)
             val day = c.get(Calendar.DAY_OF_MONTH)
             val dpd = DatePickerDialog(activity!!,
-                DatePickerDialog.OnDateSetListener { view, year, monthOfYear,
+                DatePickerDialog.OnDateSetListener { _, year, monthOfYear,
                                                      dayOfMonth ->
                     binding.inputBirthday.text =
                         SpannableStringBuilder("$dayOfMonth/$monthOfYear/$year")

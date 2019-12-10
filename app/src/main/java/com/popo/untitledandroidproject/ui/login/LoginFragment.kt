@@ -84,18 +84,18 @@ class LoginFragment : Fragment() {
 //            finish()
         })
 
-        binding.username?.afterTextChanged {
+        binding.username.afterTextChanged {
             loginViewModel.loginDataChanged(
                 binding.username.text.toString(),
                 binding.password.text.toString()
             )
         }
 
-        binding.password?.apply {
+        binding.password.apply {
             afterTextChanged {
                 loginViewModel.loginDataChanged(
-                    binding.username?.text.toString(),
-                    binding.password?.text.toString()
+                    binding.username.text.toString(),
+                    binding.password.text.toString()
                 )
             }
 
@@ -103,8 +103,8 @@ class LoginFragment : Fragment() {
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
                         loginViewModel.login(
-                            binding.username?.text.toString(),
-                            binding.password?.text.toString()
+                            binding.username.text.toString(),
+                            binding.password.text.toString()
                         )
                 }
                 false

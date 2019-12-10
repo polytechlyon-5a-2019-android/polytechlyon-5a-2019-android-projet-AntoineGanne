@@ -52,7 +52,6 @@ class ApiItemFragment : Fragment() {
 
         var viewModelJob = Job()
         val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
-        //TODO: Datasource
         var listMovies=ArrayList<Movie>()
         coroutineScope.launch {
             val getPropertiesDeferred = MyApi.retrofitService.getPropertiesAsync()

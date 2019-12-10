@@ -4,12 +4,14 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.popo.untitledandroidproject.R
 import com.popo.untitledandroidproject.model.Movie
 
 
 import com.popo.untitledandroidproject.ui.api.dummy.DummyContent.DummyItem
+import com.squareup.picasso.Picasso
 
 import kotlinx.android.synthetic.main.fragment_apiitem.view.*
 
@@ -40,7 +42,7 @@ class MyApiItemRecyclerViewAdapter(
         val item = mValues[position]
 //        holder.mIdView.text = item.title
         holder.mContentView.text = item.title
-
+        Picasso.get().load(item.img).into(holder.mPosterView)
 
         with(holder.mView) {
             tag = item
@@ -51,9 +53,10 @@ class MyApiItemRecyclerViewAdapter(
     override fun getItemCount(): Int = mValues.size
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-//        val mImfView: ImageView =mView.imageView
+        val mPosterView: ImageView =mView.poster
 //        val mIdView: TextView = mView.title
         val mContentView: TextView = mView.title
+
 
         override fun toString(): String {
             return super.toString() + " '" + mContentView.text + "'"
