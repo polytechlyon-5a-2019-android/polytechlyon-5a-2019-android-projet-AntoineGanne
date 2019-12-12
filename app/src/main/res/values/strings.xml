@@ -18,7 +18,9 @@
     <string name="woman">Woman 👩</string>
     <string name="other_gender">Non-binary 🌈</string>
     <string name="prompt_gender">Gender</string>
-
+    <string name="director">Directed by:</string>
+    <string name="wikiUrl">wikipedia:</string>
+    <string name="ReleaseYear">Released on</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

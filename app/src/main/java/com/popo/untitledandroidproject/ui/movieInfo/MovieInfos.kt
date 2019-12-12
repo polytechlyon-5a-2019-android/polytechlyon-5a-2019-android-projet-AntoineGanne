@@ -1,4 +1,4 @@
-package com.popo.untitledandroidproject.ui.api
+package com.popo.untitledandroidproject.ui.movieInfo
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -12,7 +12,8 @@ import com.popo.untitledandroidproject.R
 class MovieInfos : Fragment() {
 
     companion object {
-        fun newInstance() = MovieInfos()
+        fun newInstance() =
+            MovieInfos()
     }
 
     private lateinit var viewModel: MovieInfosViewModel
