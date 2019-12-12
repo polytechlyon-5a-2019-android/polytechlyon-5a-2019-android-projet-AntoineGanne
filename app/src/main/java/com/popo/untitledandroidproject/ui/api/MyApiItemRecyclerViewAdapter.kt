@@ -10,15 +10,13 @@ import com.popo.untitledandroidproject.R
 import com.popo.untitledandroidproject.model.Movie
 
 
-import com.popo.untitledandroidproject.ui.api.dummy.DummyContent.DummyItem
 import com.squareup.picasso.Picasso
 
 import kotlinx.android.synthetic.main.fragment_apiitem.view.*
 
 /**
- * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the
+ * [RecyclerView.Adapter] that can display a Movie and makes a call to the
  * specified [OnListFragmentInteractionListener].
- * TODO: Replace the implementation with code for your data type.
  */
 class MyApiItemRecyclerViewAdapter(
     private val mValues: List<Movie>

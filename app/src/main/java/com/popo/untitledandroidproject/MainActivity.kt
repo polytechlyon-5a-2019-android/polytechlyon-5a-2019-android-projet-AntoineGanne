@@ -2,8 +2,6 @@ package com.popo.untitledandroidproject
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.popo.untitledandroidproject.ui.api.ApiItemFragment
-import com.popo.untitledandroidproject.ui.api.dummy.DummyContent
 
 class MainActivity : AppCompatActivity() {
 //

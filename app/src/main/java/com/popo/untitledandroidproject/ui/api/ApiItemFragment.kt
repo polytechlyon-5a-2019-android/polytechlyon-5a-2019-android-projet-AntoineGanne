@@ -8,16 +8,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.popo.untitledandroidproject.R
 import com.popo.untitledandroidproject.databinding.FragmentApiitemListBinding
 import com.popo.untitledandroidproject.model.Movie
 import com.popo.untitledandroidproject.service.MyApi
-import com.popo.untitledandroidproject.service.MyApiService
-import com.popo.untitledandroidproject.ui.api.dummy.DummyContent
-import com.popo.untitledandroidproject.ui.api.dummy.DummyContent.DummyItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
