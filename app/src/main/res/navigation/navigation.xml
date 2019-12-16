@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/apiItemFragment">
+    app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.popo.untitledandroidproject.ui.login.LoginFragment"
@@ -14,6 +14,9 @@
             app:destination="@+id/accountCreationFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_loginFragment_to_apiItemFragment"
+            app:destination="@id/apiItemFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountCreationFragment"
@@ -33,5 +36,18 @@
     <fragment
         android:id="@+id/apiItemFragment"
         android:name="com.popo.untitledandroidproject.ui.api.ApiItemFragment"
-        android:label="ApiItemFragment" />
+        android:label="ApiItemFragment" >
+        <action
+            android:id="@+id/action_apiItemFragment_to_movieInfos"
+            app:destination="@id/movieInfos" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieInfos"
+        android:name="com.popo.untitledandroidproject.ui.movieInfo.MovieInfos"
+        android:label="movie_infos_fragment"
+        tools:layout="@layout/movie_infos_fragment" >
+        <argument
+            android:name="movie"
+            app:argType="com.popo.untitledandroidproject.model.Movie" />
+    </fragment>
 </navigation>

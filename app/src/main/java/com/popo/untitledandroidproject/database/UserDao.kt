@@ -1,7 +1,9 @@
 package com.popo.untitledandroidproject.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.popo.untitledandroidproject.model.User
+import kotlinx.coroutines.Deferred
 
 @Dao
 interface UserDao {

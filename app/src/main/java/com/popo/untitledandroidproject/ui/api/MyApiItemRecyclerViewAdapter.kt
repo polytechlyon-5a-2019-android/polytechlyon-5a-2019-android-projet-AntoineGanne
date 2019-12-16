@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
+import androidx.navigation.findNavController
 import com.popo.untitledandroidproject.R
 import com.popo.untitledandroidproject.model.Movie
 
@@ -19,7 +22,8 @@ import kotlinx.android.synthetic.main.fragment_apiitem.view.*
  * specified [OnListFragmentInteractionListener].
  */
 class MyApiItemRecyclerViewAdapter(
-    private val mValues: List<Movie>
+    private val mValues: List<Movie>,
+    private val fragment: ApiItemFragment
 ) : RecyclerView.Adapter<MyApiItemRecyclerViewAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
@@ -27,6 +31,12 @@ class MyApiItemRecyclerViewAdapter(
     init {
         mOnClickListener = View.OnClickListener { v ->
             val item = v.tag as Movie
+            println("clicked ${item.title}")
+            fragment.navigateToMovieInfos(item)
+
+            val action = ApiItemFragmentDirections.actionApiItemFragmentToMovieInfos(item)
+            v.findNavController().navigate(action)
+
         }
     }
 

@@ -12,7 +12,6 @@ class MovieInfosViewModelFactory(private val application: Application, private v
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(MovieInfosViewModel::class.java)){
             return MovieInfosViewModel(
-                application,
                 movie
             ) as T
         }

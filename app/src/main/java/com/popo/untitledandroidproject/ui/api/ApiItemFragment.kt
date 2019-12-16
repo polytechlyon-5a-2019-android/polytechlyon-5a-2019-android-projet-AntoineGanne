@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProviders
 import com.popo.untitledandroidproject.R
 import com.popo.untitledandroidproject.databinding.FragmentApiitemListBinding
@@ -43,10 +45,11 @@ class ApiItemFragment : Fragment() {
         binding.lifecycleOwner = this
 
 
+        val fragment = this
 
-        var viewModelJob = Job()
+        val viewModelJob = Job()
         val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
-        var listMovies=ArrayList<Movie>()
+        val listMovies=ArrayList<Movie>()
         coroutineScope.launch {
             val getPropertiesDeferred = MyApi.retrofitService.getPropertiesAsync()
             try {
@@ -63,7 +66,7 @@ class ApiItemFragment : Fragment() {
                     var movie=Movie(title,img_src,year,director,wikiUrl)
                     listMovies.add(movie)
                 }
-                binding.list.adapter=MyApiItemRecyclerViewAdapter(listMovies)
+                binding.list.adapter=MyApiItemRecyclerViewAdapter(listMovies,fragment)
 
             } catch (e: Exception) {
 
@@ -87,4 +90,21 @@ class ApiItemFragment : Fragment() {
     }
 
 
+
+    private val _navigateToMovieInfosFragment = MutableLiveData<Movie>()
+
+    val navigateToMovieInfosFragment: LiveData<Movie>
+        get() = _navigateToMovieInfosFragment
+
+    fun doneNavigating(){
+        _navigateToMovieInfosFragment.value= null
+    }
+//
+//    fun onClickOnItem(movie : Movie){
+//        _navigateToMovieInfosFragment.value = movie
+//    }
+
+    fun navigateToMovieInfos(movie: Movie) {
+        _navigateToMovieInfosFragment.value=movie
+    }
 }
