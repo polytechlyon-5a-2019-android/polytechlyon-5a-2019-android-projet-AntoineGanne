@@ -49,9 +49,12 @@ class LoginViewModel(
 //            val result = awaitAll(database.login(username, password))
 //            var user=result.get(0)
 
+
+            // had an error about database.login method
+            // I use these 3 lines to help not crash the app if the query fails.
             val callable = Callable {database.login(username,password)}
             val future = Executors.newSingleThreadExecutor().submit(callable)
-            val user = future.get(1000,TimeUnit.MILLISECONDS)
+            val user = future[10000, TimeUnit.MILLISECONDS]
 
             if (user != null) {
                 //TODO: navigation vers fragment apiListe

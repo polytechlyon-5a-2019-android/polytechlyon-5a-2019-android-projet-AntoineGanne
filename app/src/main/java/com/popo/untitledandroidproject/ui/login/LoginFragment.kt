@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.button.MaterialButton
 
 import com.popo.untitledandroidproject.R
@@ -76,7 +77,8 @@ class LoginFragment : Fragment() {
                 showLoginFailed(loginResult.error)
             }
             if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
+                onSuccessfulLogin(loginResult.success)
+                this.findNavController().navigate(R.id.action_loginFragment_to_apiItemFragment)
             }
 //            setResult(Activity.RESULT_OK)
 
@@ -111,7 +113,7 @@ class LoginFragment : Fragment() {
             }
 
             binding.login.setOnClickListener {
-//                loading.visibility = View.VISIBLE
+                loading.visibility = View.VISIBLE
                 loginViewModel.login(binding.username.text.toString(), binding.password.text.toString())
             }
         }
@@ -132,7 +134,7 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
-    private fun updateUiWithUser(model: LoggedInUserView) {
+    private fun onSuccessfulLogin(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
         // TODO : initiate successful logged in experience
@@ -141,6 +143,7 @@ class LoginFragment : Fragment() {
             "$welcome $displayName",
             Toast.LENGTH_LONG
         ).show()
+
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
