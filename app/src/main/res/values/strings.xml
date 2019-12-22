@@ -23,6 +23,13 @@
     <string name="ReleaseYear">Released on</string>
     <string name="movieImageDescription">Poster of the movie</string>
 
+
+    <string-array name="country_list">
+        <item>France</item>
+        <item>Switzerland</item>
+        <item>Vatican</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

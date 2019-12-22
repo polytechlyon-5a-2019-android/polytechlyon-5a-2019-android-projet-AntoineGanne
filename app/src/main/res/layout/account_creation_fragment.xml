@@ -162,18 +162,33 @@
                 android:text="@string/other_gender" />
         </RadioGroup>
 
-        <Button
-            android:id="@+id/button_validate_account"
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/spinner_country"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="32dp"
-            android:text="@string/title_account_creation"
-            android:onClick="@{() -> viewModel.onValidate()}"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:selectedItemPosition="@={viewModel.categoryIdItemPosition}"
+            android:entries="@array/country_list"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_gender" />
+
+        <Button
+            android:id="@+id/button_validate_account"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:onClick="@{() -> viewModel.onValidate()}"
+            android:text="@string/title_account_creation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_country" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

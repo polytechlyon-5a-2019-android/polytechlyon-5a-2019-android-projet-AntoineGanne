@@ -26,6 +26,33 @@ class AccountCreationViewModel(
     val user: LiveData<User>
         get()= _user
 
+    val categoryIdItemPosition = MutableLiveData<Int>()
+    var categoryIdValue
+        get() =
+            categoryIdItemPosition.value?.let {
+                categoryList?.get(it)
+            }
+        set(value) {
+            val position = categoryList?.indexOfFirst {
+                it == value
+            } ?: -1
+            if (position != -1) {
+                categoryIdItemPosition.value = position + 1
+            }
+        }
+    val categoryIdItem
+        get() =
+            categoryIdItemPosition.value?.let {
+                categoryList?.get(it)
+            }
+
+    var categoryList = application.resources.getStringArray(R.array.country_list)
+
+
+    fun onCountry(){
+        _user.value?.country=categoryList[categoryIdItemPosition.value!!]
+    }
+
     fun onGender(gender: String) {
         _user.value?.gender = gender
     }
@@ -86,7 +113,8 @@ class AccountCreationViewModel(
 
     fun onValidate() {
         uiScope.launch {
-            println("insert "+user.value)
+            _user.value?.country=categoryIdValue
+            println("user to insert is "+user.value)
             val user = user.value ?: return@launch
             if(user.email.isNullOrEmpty() || !utils.isMailValid(user.email!!))
                 return@launch
@@ -99,4 +127,5 @@ class AccountCreationViewModel(
             _navigateToLoginFragment.value = user
         }
     }
+
 }

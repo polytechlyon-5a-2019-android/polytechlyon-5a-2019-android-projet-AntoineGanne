@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.popo.untitledandroidproject.R
@@ -76,6 +77,12 @@ class AccountCreationFragment : Fragment() {
 //            binding.root.findNavController().navigate(R.id.action_accountCreationFragment_to_loginFragment)
 //        }
 
+        val spinnerAdapter= ArrayAdapter.createFromResource(
+            this.context!!,R.array.country_list,android.R.layout.simple_spinner_item)
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerCountry.adapter=spinnerAdapter
+
+
         binding.viewModel=viewModel
         return binding.root
     }
@@ -85,5 +92,7 @@ class AccountCreationFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(AccountCreationViewModel::class.java)
         // TODO: Use the ViewModel
     }
+
+
 
 }
