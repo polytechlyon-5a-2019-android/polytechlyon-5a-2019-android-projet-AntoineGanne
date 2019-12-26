@@ -17,7 +17,7 @@ import kotlinx.coroutines.*
 class AccountCreationViewModel(
     val database: UserDao,
     application: Application,
-    private val userID: Long=0L
+    private val userID: Long=-1L
 ) : AndroidViewModel(application) {
     private val viewModelJob = Job()
     private val uiScope= CoroutineScope(Dispatchers.Main+viewModelJob)
@@ -120,6 +120,7 @@ class AccountCreationViewModel(
                 return@launch
             if(user.password.isNullOrEmpty() || !utils.isPasswordValid(user.password!!))
                 return@launch
+
             println("****************")
             println("insert "+user.email)
             val idNewUser=insertUser(user)

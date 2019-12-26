@@ -45,7 +45,8 @@
             android:text="@={viewModel.user.email}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/form_title" />
+            app:layout_constraintTop_toBottomOf="@+id/form_title"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/input_password"
@@ -60,21 +61,8 @@
             android:text="@={viewModel.user.password}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_email" />
-
-        <EditText
-            android:id="@+id/input_password_check"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:ems="10"
-            android:hint="@string/prompt_password_check"
-            android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_password" />
+            app:layout_constraintTop_toBottomOf="@+id/input_email"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/input_firstname"
@@ -89,7 +77,8 @@
             android:text="@={viewModel.user.firstname}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_password_check" />
+            app:layout_constraintTop_toBottomOf="@+id/input_password"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/input_lastname"
@@ -104,7 +93,8 @@
             android:text="@={viewModel.user.lastname}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_firstname" />
+            app:layout_constraintTop_toBottomOf="@+id/input_firstname"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/input_birthday"
@@ -118,7 +108,8 @@
             android:inputType="date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_lastname" />
+            app:layout_constraintTop_toBottomOf="@+id/input_lastname"
+            android:autofillHints="" />
 
         <RadioGroup
             android:id="@+id/input_gender"
@@ -182,7 +173,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="128dp"
             android:onClick="@{() -> viewModel.onValidate()}"
             android:text="@string/title_account_creation"
             app:layout_constraintBottom_toBottomOf="parent"

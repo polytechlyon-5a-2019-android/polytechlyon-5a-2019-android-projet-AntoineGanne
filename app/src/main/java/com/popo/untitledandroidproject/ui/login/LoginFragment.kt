@@ -72,7 +72,6 @@ class LoginFragment : Fragment() {
         loginViewModel.loginResult.observe(this@LoginFragment, Observer {
             val loginResult = it ?: return@Observer
 
-            binding.loading.visibility = View.GONE
             if (loginResult.error != null) {
                 showLoginFailed(loginResult.error)
             }
@@ -113,7 +112,6 @@ class LoginFragment : Fragment() {
             }
 
             binding.login.setOnClickListener {
-                loading.visibility = View.VISIBLE
                 loginViewModel.login(binding.username.text.toString(), binding.password.text.toString())
             }
         }
