@@ -139,7 +139,7 @@ class AccountCreationViewModel(
     private val _AccountForm=MutableLiveData<AccountFormState>()
     val accountFormState: LiveData<AccountFormState> = _AccountForm
 
-    //TODO: call this function
+
     fun AccountDataChanged(username: String, password: String) {
         if (!isMailValid(username)) {
             _AccountForm.value =

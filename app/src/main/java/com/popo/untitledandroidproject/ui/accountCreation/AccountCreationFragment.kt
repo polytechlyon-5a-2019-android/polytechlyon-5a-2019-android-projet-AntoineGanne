@@ -1,33 +1,26 @@
 package com.popo.untitledandroidproject.ui.accountCreation
 
 import android.app.DatePickerDialog
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.text.SpannableStringBuilder
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.popo.untitledandroidproject.R
-import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import com.popo.untitledandroidproject.database.LocalDatabase
-import com.popo.untitledandroidproject.databinding.*
-import com.popo.untitledandroidproject.ui.login.LoginFragmentDirections
-import java.util.Calendar
-import java.util.Date
-
+import com.popo.untitledandroidproject.databinding.AccountCreationFragmentBinding
+import com.popo.untitledandroidproject.ui.login.afterTextChanged
+import kotlinx.android.synthetic.main.fragment_login.*
+import java.util.*
 
 
 class AccountCreationFragment : Fragment() {
-
-    companion object {
-        fun newInstance() =
-            AccountCreationFragment()
-    }
 
     private lateinit var viewModel: AccountCreationViewModel
     private lateinit var binding: AccountCreationFragmentBinding
@@ -59,15 +52,16 @@ class AccountCreationFragment : Fragment() {
                                                      dayOfMonth ->
                     binding.inputBirthday.text =
                         SpannableStringBuilder("$dayOfMonth/$monthOfYear/$year")
-                    viewModel.user.value?.birthdayDate =
+                    viewModel.user?.value?.birthdayDate =
                         Date(year,monthOfYear,dayOfMonth).time
                 }, year, month, day)
             dpd.show()
         }
 
+
         // Code qui remplace la fonction onValidate()
         viewModel.navigateToLoginFragment.observe(this, Observer { user ->
-            user?.let {
+            user.let {
                 this.findNavController().navigate(R.id.action_accountCreationFragment_to_loginFragment)
                 viewModel.doneNavigating()
             }
@@ -81,6 +75,35 @@ class AccountCreationFragment : Fragment() {
             this.context!!,R.array.country_list,android.R.layout.simple_spinner_item)
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerCountry.adapter=spinnerAdapter
+
+
+
+        viewModel.accountFormState.observe(this@AccountCreationFragment, Observer {
+            val formState=it?:return@Observer
+
+            binding.buttonValidateAccount.isEnabled=formState.isDataValid
+            if (formState.usernameError != null) {
+                binding.inputEmail.error = getString(formState.usernameError)
+            }
+            if (formState.passwordError != null) {
+                binding.inputPassword.error = getString(formState.passwordError)
+            }
+        })
+
+
+        binding.inputEmail.afterTextChanged {
+            viewModel.AccountDataChanged(
+                binding.inputEmail.text.toString(),
+                binding.inputPassword.text.toString()
+            )
+        }
+
+        binding.inputPassword.afterTextChanged {
+            viewModel.AccountDataChanged(
+                binding.inputEmail.text.toString(),
+                binding.inputPassword.text.toString()
+            )
+        }
 
 
         binding.viewModel=viewModel
