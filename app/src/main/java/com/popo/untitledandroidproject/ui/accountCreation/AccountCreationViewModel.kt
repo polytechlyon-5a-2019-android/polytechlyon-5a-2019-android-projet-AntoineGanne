@@ -4,6 +4,7 @@ import android.app.Application
 import android.provider.SyncStateContract.Helpers.insert
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,13 +12,16 @@ import androidx.navigation.findNavController
 import com.popo.untitledandroidproject.R
 import com.popo.untitledandroidproject.database.UserDao
 import com.popo.untitledandroidproject.model.User
+import com.popo.untitledandroidproject.ui.login.LoginFormState
 import kotlinx.coroutines.*
+import utils.isMailValid
+import utils.isPasswordValid
 
 
 class AccountCreationViewModel(
     val database: UserDao,
     application: Application,
-    private val userID: Long=-1L
+    private val userID: Long=0L
 ) : AndroidViewModel(application) {
     private val viewModelJob = Job()
     private val uiScope= CoroutineScope(Dispatchers.Main+viewModelJob)
@@ -25,6 +29,8 @@ class AccountCreationViewModel(
     private val _user= MutableLiveData<User>()
     val user: LiveData<User>
         get()= _user
+
+
 
     val categoryIdItemPosition = MutableLiveData<Int>()
     var categoryIdValue
@@ -126,6 +132,24 @@ class AccountCreationViewModel(
             val idNewUser=insertUser(user)
             user.id=idNewUser
             _navigateToLoginFragment.value = user
+        }
+    }
+
+
+    private val _AccountForm=MutableLiveData<AccountFormState>()
+    val accountFormState: LiveData<AccountFormState> = _AccountForm
+
+    //TODO: call this function
+    fun AccountDataChanged(username: String, password: String) {
+        if (!isMailValid(username)) {
+            _AccountForm.value =
+                AccountFormState(usernameError = R.string.invalid_username)
+        } else if (!isPasswordValid(password)) {
+            _AccountForm.value =
+                AccountFormState(passwordError = R.string.invalid_password)
+        } else {
+            _AccountForm.value =
+                AccountFormState(isDataValid = true)
         }
     }
 
