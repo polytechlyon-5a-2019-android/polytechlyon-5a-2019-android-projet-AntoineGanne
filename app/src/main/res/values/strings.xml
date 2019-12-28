@@ -22,6 +22,7 @@
     <string name="wikiUrl">wikipedia:</string>
     <string name="ReleaseYear">Released on</string>
     <string name="movieImageDescription">Poster of the movie</string>
+    <string name="movieContentInstruction">Click on an image to see more information!</string>
 
 
     <string-array name="country_list">

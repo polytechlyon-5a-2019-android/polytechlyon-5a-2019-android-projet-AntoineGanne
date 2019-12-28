@@ -15,29 +15,35 @@
         android:paddingBottom="32dp"
         tools:layout_editor_absoluteY="1dp">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.83"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
             android:name="com.popo.untitledandroidproject.ui.api.ApiItemFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="24dp"
             android:addStatesFromChildren="false"
             android:clipChildren="false"
             android:clipToPadding="false"
+            android:paddingBottom="128dp"
             app:layoutManager="LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
             tools:context="com.popo.untitledandroidproject.ui.api.ApiItemFragment"
             tools:listitem="@layout/fragment_apiitem" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/movieContentInstruction"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
