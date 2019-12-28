@@ -13,10 +13,14 @@
             android:id="@+id/action_loginFragment_to_accountCreationFragment"
             app:destination="@+id/accountCreationFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_exit_anim"
+            app:popExitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_loginFragment_to_apiItemFragment"
-            app:destination="@id/apiItemFragment" />
+            app:destination="@id/apiItemFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/accountCreationFragment"
@@ -25,8 +29,7 @@
         tools:layout="@layout/account_creation_fragment" >
         <action
             android:id="@+id/action_accountCreationFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popUpTo="@+id/loginFragment" />
+            app:destination="@id/loginFragment" />
         <argument
             android:name="user_arg"
             app:argType="com.popo.untitledandroidproject.model.User"
@@ -39,7 +42,15 @@
         android:label="ApiItemFragment" >
         <action
             android:id="@+id/action_apiItemFragment_to_movieInfos"
-            app:destination="@id/movieInfos" />
+            app:destination="@id/movieInfos"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_apiItemFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@+id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/movieInfos"

@@ -62,8 +62,10 @@ class AccountCreationFragment : Fragment() {
         // Code qui remplace la fonction onValidate()
         viewModel.navigateToLoginFragment.observe(this, Observer { user ->
             user.let {
-                this.findNavController().navigate(R.id.action_accountCreationFragment_to_loginFragment)
-                viewModel.doneNavigating()
+                if(user!=null){
+                    this.findNavController().navigate(R.id.action_accountCreationFragment_to_loginFragment)
+                    viewModel.doneNavigating()
+                }
             }
         })
 
