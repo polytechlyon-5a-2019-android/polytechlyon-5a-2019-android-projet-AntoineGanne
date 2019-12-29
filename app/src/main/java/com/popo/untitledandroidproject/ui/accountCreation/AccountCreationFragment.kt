@@ -83,7 +83,7 @@ class AccountCreationFragment : Fragment() {
         viewModel.accountFormState.observe(this@AccountCreationFragment, Observer {
             val formState=it?:return@Observer
 
-            binding.buttonValidateAccount.isEnabled=formState.isDataValid
+
             if (formState.usernameError != null) {
                 binding.inputEmail.error = getString(formState.usernameError)
             }
@@ -98,6 +98,7 @@ class AccountCreationFragment : Fragment() {
                 binding.inputEmail.text.toString(),
                 binding.inputPassword.text.toString()
             )
+            binding.buttonValidateAccount.isEnabled=viewModel.accountFormState.value?.isDataValid?:true
         }
 
         binding.inputPassword.afterTextChanged {
@@ -105,6 +106,7 @@ class AccountCreationFragment : Fragment() {
                 binding.inputEmail.text.toString(),
                 binding.inputPassword.text.toString()
             )
+            binding.buttonValidateAccount.isEnabled=viewModel.accountFormState.value?.isDataValid?:true
         }
 
 

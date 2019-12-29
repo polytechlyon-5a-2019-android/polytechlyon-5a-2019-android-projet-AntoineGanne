@@ -98,5 +98,8 @@ class LoginViewModel(
         }
     }
 
+    fun doneNavigating(){
+        _loginResult.value=null
+    }
 
 }

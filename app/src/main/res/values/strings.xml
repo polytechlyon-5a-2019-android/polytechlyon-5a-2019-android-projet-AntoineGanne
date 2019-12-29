@@ -14,7 +14,7 @@
     <string name="prompt_lastname">Last name</string>
     <string name="prompt_firstname">First name</string>
     <string name="prompt_birthday">Birthday</string>
-    <string name="man" >Man 👨</string>
+    <string name="man">Man 👨</string>
     <string name="woman">Woman 👩</string>
     <string name="other_gender">Non-binary 🌈</string>
     <string name="prompt_gender">Gender</string>
@@ -23,12 +23,17 @@
     <string name="ReleaseYear">Released on</string>
     <string name="movieImageDescription">Poster of the movie</string>
     <string name="movieContentInstruction">Click on an image to see more information!</string>
-
+    <string name="presentation">This application is meant to give you a list of movies featuring cats! 🐱</string>
+    <string name="author">Made by Antoine Ganne for the Android Dev course of Polytech Lyon.</string>
+    <string name="logo_img_desc">logo of the app</string>
+    <string name="ok">OK!</string>
 
     <string-array name="country_list">
         <item>France</item>
         <item>Switzerland</item>
         <item>Vatican</item>
     </string-array>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

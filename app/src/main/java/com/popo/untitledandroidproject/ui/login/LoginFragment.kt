@@ -58,9 +58,6 @@ class LoginFragment : Fragment() {
         loginViewModel.loginFormState.observe(this@LoginFragment, Observer {
             val loginState = it ?: return@Observer
 
-            // disable login button unless both username / password is valid
-            binding.login.isEnabled = loginState.isDataValid
-
             if (loginState.usernameError != null) {
                 binding.username.error = getString(loginState.usernameError)
             }
@@ -69,7 +66,7 @@ class LoginFragment : Fragment() {
             }
         })
 
-        loginViewModel.loginResult.observe(this@LoginFragment, Observer {
+        loginViewModel.loginResult.observe(viewLifecycleOwner, Observer {
             val loginResult = it ?: return@Observer
 
             if (loginResult.error != null) {
@@ -78,6 +75,7 @@ class LoginFragment : Fragment() {
             if (loginResult.success != null) {
                 onSuccessfulLogin(loginResult.success)
                 this.findNavController().navigate(R.id.action_loginFragment_to_apiItemFragment)
+                loginViewModel.doneNavigating()
             }
 //            setResult(Activity.RESULT_OK)
 
@@ -90,6 +88,8 @@ class LoginFragment : Fragment() {
                 binding.username.text.toString(),
                 binding.password.text.toString()
             )
+            // disable login button unless both username / password is valid
+            binding.login.isEnabled= loginViewModel.loginFormState.value?.isDataValid ?: true
         }
 
         binding.password.apply {
@@ -98,6 +98,8 @@ class LoginFragment : Fragment() {
                     binding.username.text.toString(),
                     binding.password.text.toString()
                 )
+                // disable login button unless both username / password is valid
+                binding.login.isEnabled= loginViewModel.loginFormState.value?.isDataValid ?: true
             }
 
             setOnEditorActionListener { _, actionId, _ ->
@@ -125,7 +127,7 @@ class LoginFragment : Fragment() {
         }
 
         binding.bAccountCreation.setOnClickListener {view ->
-            binding.root.findNavController().navigate(R.id.action_loginFragment_to_accountCreationFragment);
+            binding.root.findNavController().navigate(R.id.action_loginFragment_to_accountCreationFragment)
         }
 
 
@@ -135,7 +137,6 @@ class LoginFragment : Fragment() {
     private fun onSuccessfulLogin(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
-        // TODO : initiate successful logged in experience
         Toast.makeText(
             this.context,
             "$welcome $displayName",

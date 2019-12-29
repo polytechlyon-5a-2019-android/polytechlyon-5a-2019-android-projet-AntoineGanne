@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/presentationScreen">
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.popo.untitledandroidproject.ui.login.LoginFragment"
@@ -60,5 +60,14 @@
         <argument
             android:name="movie"
             app:argType="com.popo.untitledandroidproject.model.Movie" />
+    </fragment>
+    <fragment
+        android:id="@+id/presentationScreen"
+        android:name="com.popo.untitledandroidproject.ui.presentationScreen.PresentationScreen"
+        android:label="fragment_presentation_screen"
+        tools:layout="@layout/fragment_presentation_screen" >
+        <action
+            android:id="@+id/action_presentationScreen_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 </navigation>
